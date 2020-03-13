@@ -55,72 +55,56 @@ def getJSON(filename):
 
     return data
 
-def createMI(old, new):
-    old = getJSON(old+"mi.txt")
-    new = getJSON(new+"mi.txt")
-    
-    totalMI = 0
-    counter = 0
+def plotHalstead(old, new):
 
-    allFiles = {}
+    xNames= ["VOCABULARY", "LENGTH", "CALCULATED_LENGTH", "VOLUME", "DIFFICULTY", "TIME", "BUGS"]
+    
+    halsteadTotalOld = [0,0,0,0,0,0,0]
+    halsteadTotalNew = [0,0,0,0,0,0,0]
 
     for filename in old:
-        if filename not in allFiles:
-            allFiles[filename] = [ ("old", old[filename]["mi"] ) ]
-        else:
-            allFiles[filename].append( ("old", old[filename]["mi"]) )
-    
+        i=0
+        passed=True
+        for stat in old[filename]["total"][4:]:
+
+            if i==5 and passed:
+                passed=False
+                continue
+            halsteadTotalOld[i]+=stat
+            i+=1
+
     for filename in new:
-        if filename not in allFiles:
-            allFiles[filename] = [ ("new", new[filename]["mi"]) ]
-        else:
-            allFiles[filename].append( ("new", new[filename]["mi"] ))
+        i=0
+        passed=True
+        print(new[filename]["total"][4:])
+        for stat in new[filename]["total"][4:]:
+            
+            if i==5 and passed:
+                passed=False
+                continue
+            print(stat)
+            halsteadTotalNew[i]+=stat
+            i+=1
 
-    xNames = []
-    yValuesOld = []; oldMITotal = 0; oldMICounter = 0
-    yValuesNew = []; newMITotal = 0; newMICounter = 0
-
-    for filename in allFiles:
-        xNames.append(filename)
-        addOld = True; addNew = True
-        for element in allFiles[filename]:
-            if element[0] == "old":
-                yValuesOld.append(element[1])
-                oldMITotal += element[1]
-                oldMICounter +=1
-                addOld = False
-            elif element[0] == "new":
-                newMITotal += element[1]
-                newMICounter +=1
-                yValuesNew.append(element[1])
-                addNew = False
-
-        if addOld:
-            yValuesOld.append(100)
-        if addNew:
-            yValuesNew.append(100)
+    for i in range(len(halsteadTotalNew)):
+        plt.scatter(i, halsteadTotalNew[i], color="b")
+        plt.scatter(i, halsteadTotalOld[i], color="r")
         
-    print("Filenames: ", xNames)
-    print("Old:", yValuesOld)
-    print("New: ", yValuesNew)
-
     
-    xValues = range(len(xNames))
+    plt.xticks(range(len(xNames)), xNames)
 
+    plt.scatter(5.5, 2500, color="r", label="Ros Integration", marker="s")
+    plt.annotate("2019 System", (5.5, 2500), textcoords="offset points", xytext=(10,-4)) 
 
-    plt.xticks(xValues, xNames)
-    plt.scatter(xValues, yValuesOld, color="r")
-    plt.scatter(xValues, yValuesNew, color="g")
+    plt.scatter(5.5, 2350, color="g", label="Ros Integration", marker="s")
+    plt.annotate("ROS System", (5.5, 2350), textcoords="offset points", xytext=(15,-4))
 
-    plt.plot(xValues, [oldMITotal/oldMICounter]*len(xValues), "r", label="2019 System")
-    plt.plot(xValues, [newMITotal/newMICounter]*len(xValues), "g", label="ROS System")
-
-    plt.xlabel("Filenames")
-    plt.ylabel("Maintainability Index")
+    plt.title("Halstead Detailed Comparison")
 
     plt.show()
 
+    print(halsteadTotalNew)
 
 if __name__=="__main__":
-    plotRaw(getJSON("std_fsai/raw.txt"), getJSON("ros_fsai/raw.txt"))
+    plotHalstead(getJSON("std_fsai/hal.txt"), getJSON("ros_fsai/hal.txt"))
     
