@@ -1,0 +1,1 @@
+{"autocross.py": {"mi": 72.2483290553084, "rank": "A"}, "cmds.py": {"mi": 56.19662594159217, "rank": "A"}, "colour.py": {"mi": 92.2864676635334, "rank": "A"}, "globals.py": {"mi": 100.0, "rank": "A"}, "imProc.py": {"mi": 68.56427435502069, "rank": "A"}, "maskProc.py": {"mi": 69.87618471354618, "rank": "A"}, "rosCapturing.py": {"mi": 51.065835396403166, "rank": "A"}}
