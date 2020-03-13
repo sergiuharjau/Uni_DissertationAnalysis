@@ -87,19 +87,17 @@ def plotHalstead(old, new):
             i+=1
 
     for i in range(len(halsteadTotalNew)):
-        plt.scatter(i, halsteadTotalNew[i], color="b")
-        plt.scatter(i, halsteadTotalOld[i], color="r")
+        plt.scatter(i, halsteadTotalNew[i]/halsteadTotalOld[i]*100, color="b")
         
-    
     plt.xticks(range(len(xNames)), xNames)
 
-    plt.scatter(5.5, 2500, color="r", label="Ros Integration", marker="s")
-    plt.annotate("2019 System", (5.5, 2500), textcoords="offset points", xytext=(10,-4)) 
+    plt.scatter(4.5, 100, color="b", label="Ros Integration", marker="s")
+    plt.annotate("Ros System vs 2019 System", (4.5, 100), textcoords="offset points", xytext=(10,-4)) 
 
-    plt.scatter(5.5, 2350, color="g", label="Ros Integration", marker="s")
-    plt.annotate("ROS System", (5.5, 2350), textcoords="offset points", xytext=(15,-4))
+    # plt.scatter(5.5, 2350, color="g", label="Ros Integration", marker="s")
+    # plt.annotate("ROS System", (5.5, 2350), textcoords="offset points", xytext=(15,-4))
 
-    plt.title("Halstead Detailed Comparison")
+    plt.title("Halstead Percentage Comparison")
 
     plt.show()
 
