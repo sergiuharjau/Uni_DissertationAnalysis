@@ -92,7 +92,49 @@ def plotHalstead(old, new):
     plt.title("Halstead Percentage Comparison")
     plt.show()
 
+def plotCC_MI(oldMI, newMI):
+    # Since CC gives us averaging over all the files, we'll use that
+
+    xNames = ["BLOCKS", "CC", "MI"]
+
+    oldBlocks = 20
+    newBlocks = 15
+
+    oldCC = 4.50
+    newCC = 3.06
+
+    oldTotal = 0
+    newTotal = 0
+
+    for filename in oldMI:
+        oldTotal += oldMI[filename]["mi"]
+    for filename in newMI:
+        newTotal += newMI[filename]["mi"]
+
+    plt.xticks(range(len(xNames)), xNames)
+
+    plt.scatter(0, newBlocks/oldBlocks*100, color="b")
+    #plt.scatter(0, newBlocks, color="g")
+
+    plt.scatter(1, newCC/oldCC*100, color="b")
+    #plt.scatter(1, newCC, color="g")
+
+    newAverage= newTotal/len(newMI)
+    oldAverage= oldTotal/len(oldMI)
+
+    plt.scatter(2, newAverage/oldAverage*100, color="b")
+    #plt.scatter(2, newTotal/len(newMI), color="g")
+
+    plt.scatter(1.2, 110, color="b", label="Ros Integration", marker="s")
+    plt.annotate("Ros System vs 2019 System", (1.2, 110), textcoords="offset points", xytext=(10,-4)) 
+
+    #plt.scatter(1.7, 80, color="g", label="Ros Integration", marker="s")
+    #plt.annotate("ROS System", (1.7, 80), textcoords="offset points", xytext=(15,-4))
+
+    plt.title("Percentage Analysis: CC and MI")
+    plt.show()
+
 
 if __name__=="__main__":
-    plotHalstead(getJSON("std_fsai/hal.txt"), getJSON("ros_fsai/hal.txt"))
+    plotCC_MI(getJSON("std_fsai/mi.txt"), getJSON("ros_fsai/mi.txt"))
     
