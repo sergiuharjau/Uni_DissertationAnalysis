@@ -125,8 +125,8 @@ def plotCC_MI(oldMI, newMI):
     plt.scatter(2, newAverage/oldAverage*100, color="b")
     #plt.scatter(2, newTotal/len(newMI), color="g")
 
-    plt.scatter(1.2, 110, color="b", label="Ros Integration", marker="s")
-    plt.annotate("Ros System vs 2019 System", (1.2, 110), textcoords="offset points", xytext=(10,-4)) 
+    plt.scatter(1.15, 110, color="b", label="Ros Integration", marker="s")
+    plt.annotate("Ros System vs 2019 System", (1.15, 110), textcoords="offset points", xytext=(10,-4)) 
 
     #plt.scatter(1.7, 80, color="g", label="Ros Integration", marker="s")
     #plt.annotate("ROS System", (1.7, 80), textcoords="offset points", xytext=(15,-4))
