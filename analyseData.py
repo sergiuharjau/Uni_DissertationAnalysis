@@ -30,10 +30,6 @@ def plotRaw(old, new):
         plt.scatter(i, old[stat], color="r")
         plt.scatter(i, new[stat], color="g")
         xNames.append(stat.upper())
-        #plt.annotate(stat.upper(), (i, old[stat]), textcoords="offset points", xytext=(12,0))      
-
-        #plt.plot((i-0.5, i-0.5), (new[stat], old[stat]), color="b")
-        #plt.plot((i+0.6, i+0.6), (new[stat], old[stat]), color="b")
         i+=1
 
     plt.xticks(range(len(xNames)*3), xNames)
@@ -66,7 +62,6 @@ def plotHalstead(old, new):
         i=0
         passed=True
         for stat in old[filename]["total"][4:]:
-
             if i==5 and passed:
                 passed=False
                 continue
@@ -76,13 +71,10 @@ def plotHalstead(old, new):
     for filename in new:
         i=0
         passed=True
-        print(new[filename]["total"][4:])
         for stat in new[filename]["total"][4:]:
-            
             if i==5 and passed:
                 passed=False
                 continue
-            print(stat)
             halsteadTotalNew[i]+=stat
             i+=1
 
@@ -98,10 +90,8 @@ def plotHalstead(old, new):
     # plt.annotate("ROS System", (5.5, 2350), textcoords="offset points", xytext=(15,-4))
 
     plt.title("Halstead Percentage Comparison")
-
     plt.show()
 
-    print(halsteadTotalNew)
 
 if __name__=="__main__":
     plotHalstead(getJSON("std_fsai/hal.txt"), getJSON("ros_fsai/hal.txt"))
