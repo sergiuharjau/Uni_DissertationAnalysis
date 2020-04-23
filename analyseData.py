@@ -25,24 +25,47 @@ def plotRaw(old, new):
     new = totalNew
     xNames = []
     i=0
+
+    print(old)
+    print(new)
+
     for stat in old:
-        print(old[stat])
-        plt.scatter(i, old[stat], color="r")
-        plt.scatter(i, new[stat], color="g")
+        # RAWD41159
+        #plt.scatter(i, old[stat], color="#1A85FF", marker="^", s=100)
+        #plt.scatter(i, new[stat], color="#D41159", marker="*", s=100)
+
+        # Percentage
+        plt.bar(i, new[stat]/old[stat]*100, color="#D35FB7")
+        #print(new[stat]/old[stat]*100)
+
         xNames.append(stat.upper())
         i+=1
+    
 
+### RAW 
+    """
     plt.xticks(range(len(xNames)*3), xNames)
-
-    plt.scatter(5.5, 630, color="r", label="Ros Integration", marker="s")
+    plt.scatter(5.5, 630, color="#1A85FF", marker="^", s=100)
     plt.annotate("2019 System", (5.5, 630), textcoords="offset points", xytext=(10,-4)) 
 
-    plt.scatter(5.5, 590, color="g", label="Ros Integration", marker="s")
-    plt.annotate("ROS System", (5.5, 590), textcoords="offset points", xytext=(15,-4))
+    plt.scatter(5.5, 590, color="#D41159", marker="*", s=100)
+    plt.annotate("2020 System", (5.5, 590), textcoords="offset points", xytext=(10,-4))
 
     plt.title("Raw Metrics Detailed Comparison")
-                          
+    plt.ylabel("Number of Lines")
+    plt.xlabel("Raw Metrics")
+    """
+ 
+### Percentage
+    plt.xticks(range(len(xNames)), xNames)
+
+    plt.xlabel("Raw Metrics")     
+    plt.title("Raw Metrics Percentage Comparison")
+    plt.ylabel("Percentage Metrics 2020 vs 2019") 
+
     plt.show()
+
+
 
 def getJSON(filename):
 
@@ -79,26 +102,40 @@ def plotHalstead(old, new):
             i+=1
 
     for i in range(len(halsteadTotalNew)):
-        plt.scatter(i, halsteadTotalNew[i]/halsteadTotalOld[i]*100, color="b")
+        # Raw#1A85FF
+        #plt.scatter(i, halsteadTotalOld[i], color="#1A85FF", marker="^", s=100)
+        #plt.scatter(i, halsteadTotalNew[i], color="#D41159", marker="*", s=100)
+
+        # Percentage
+        plt.bar(i, halsteadTotalNew[i]/halsteadTotalOld[i]*100, color="#D35FB7")
         
     plt.xticks(range(len(xNames)), xNames)
 
-    plt.scatter(4.5, 100, color="b", label="Ros Integration", marker="s")
-    plt.annotate("Ros System vs 2019 System", (4.5, 100), textcoords="offset points", xytext=(10,-4)) 
+# RAW
+    """
+    plt.scatter(5.5, 2550, color="#1A85FF", marker="^", s=100)
+    plt.annotate("2019 System", (5.5, 2550), textcoords="offset points", xytext=(10,-4)) 
 
-    # plt.scatter(5.5, 2350, color="g", label="Ros Integration", marker="s")
-    # plt.annotate("ROS System", (5.5, 2350), textcoords="offset points", xytext=(15,-4))
+    plt.scatter(5.5, 2350, color="#D41159",  marker="*", s=100)
+    plt.annotate("2020 System", (5.5, 2350), textcoords="offset points", xytext=(10,-4))
 
-    plt.title("Halstead Percentage Comparison")
+    plt.xlabel("Halstead Metrics")     
+    plt.ylabel("Metrics Size") 
+    plt.title("Halstead Metrics Detailed Comparison")
+    """
+#Percentage
+
+    plt.xlabel("Halstead Metrics")     
+    plt.ylabel("Percentage Metrics 2020 vs 2019") 
+    plt.title("Halstead Metrics Percentage Comparison")
+
+
     plt.show()
 
 def plotCC_MI(oldMI, newMI):
     # Since CC gives us averaging over all the files, we'll use that
 
-    xNames = ["BLOCKS", "CC", "MI"]
-
-    oldBlocks = 20
-    newBlocks = 15
+    xNames = ["CC", "MI"]
 
     oldCC = 4.50
     newCC = 3.06
@@ -113,25 +150,28 @@ def plotCC_MI(oldMI, newMI):
 
     plt.xticks(range(len(xNames)), xNames)
 
-    plt.scatter(0, newBlocks/oldBlocks*100, color="b")
-    #plt.scatter(0, newBlocks, color="g")
+    #plt.bar(0, newCC/oldCC*100, color="#D35FB7")
 
-    plt.scatter(1, newCC/oldCC*100, color="b")
-    #plt.scatter(1, newCC, color="g")
+    plt.scatter(0, oldCC, color="#1A85FF", s=100, marker="^")
+    plt.scatter(0, newCC, color="#D41159", s=100, marker="*")
 
     newAverage= newTotal/len(newMI)
     oldAverage= oldTotal/len(oldMI)
 
-    plt.scatter(2, newAverage/oldAverage*100, color="b")
-    #plt.scatter(2, newTotal/len(newMI), color="g")
+    #plt.bar(1, newAverage/oldAverage*100, color="#D35FB7")
+    plt.scatter(1, oldAverage, color="#1A85FF", s=100, marker="^")
+    plt.scatter(1, newAverage, color="#D41159", s=100, marker="*")
 
-    plt.scatter(1.15, 110, color="b", label="Ros Integration", marker="s")
-    plt.annotate("Ros System vs 2019 System", (1.15, 110), textcoords="offset points", xytext=(10,-4)) 
 
-    #plt.scatter(1.7, 80, color="g", label="Ros Integration", marker="s")
-    #plt.annotate("ROS System", (1.7, 80), textcoords="offset points", xytext=(15,-4))
+    plt.scatter(0, 80, color="#1A85FF", marker="^", s=100)
+    plt.annotate("2019 System", (0, 80), textcoords="offset points", xytext=(10,-4)) 
 
-    plt.title("Percentage Analysis: CC and MI")
+    plt.scatter(0, 75, color="#D41159", marker="*", s=100)
+    plt.annotate("2020 System", (0, 75), textcoords="offset points", xytext=(10,-4))
+
+    plt.ylabel("Metrics Value")
+    plt.xlabel("Cyclomatic Complexity and Maintainability Index")
+    plt.title("Detailed Analysis: CC and MI")
     plt.show()
 
 
