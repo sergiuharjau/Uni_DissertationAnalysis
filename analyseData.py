@@ -108,9 +108,14 @@ def plotHalstead(old, new):
 
         # Percentage
         plt.bar(i, halsteadTotalNew[i]/halsteadTotalOld[i]*100, color="#D35FB7")
+
+    print(halsteadTotalOld)
+    print(halsteadTotalNew)
+
         
     plt.xticks(range(len(xNames)), xNames)
 
+    plt.scatter(0, 100, color="w")
 # RAW
     """
     plt.scatter(5.1, 2550, color="#1A85FF", marker="^", s=100)
@@ -169,12 +174,12 @@ def plotCC_MI(oldMI, newMI):
     plt.scatter(0, 75, color="#D41159", marker="*", s=100)
     plt.annotate("2020 System", (0, 75), textcoords="offset points", xytext=(10,-4))
 
-    plt.ylabel("Relative Percentage Metrics 2020 vs 2019")
+    plt.ylabel("Metrics Size")
     plt.xlabel("Cyclomatic Complexity and Maintainability Index")
-    plt.title("CC and MI Relative Percentage Comparison")
+    plt.title("CC and MI Detailed Comparison")
     plt.show()
 
 
 if __name__=="__main__":
-    plotRaw(getJSON("std_fsai/raw.txt"), getJSON("ros_fsai/raw.txt"))
+    plotHalstead(getJSON("std_fsai/hal.txt"), getJSON("ros_fsai/hal.txt"))
     
