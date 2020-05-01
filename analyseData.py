@@ -43,25 +43,25 @@ def plotRaw(old, new):
     
 
 ### RAW 
-    """
-    plt.xticks(range(len(xNames)*3), xNames)
-    plt.scatter(5.5, 630, color="#1A85FF", marker="^", s=100)
-    plt.annotate("2019 System", (5.5, 630), textcoords="offset points", xytext=(10,-4)) 
 
-    plt.scatter(5.5, 590, color="#D41159", marker="*", s=100)
-    plt.annotate("2020 System", (5.5, 590), textcoords="offset points", xytext=(10,-4))
+    plt.xticks(range(len(xNames)), xNames)
+    #plt.scatter(5.1, 630, color="#1A85FF", marker="^", s=100)
+    #plt.annotate("2019 System", (5.1, 630), textcoords="offset points", xytext=(10,-4)) 
 
-    plt.title("Raw Metrics Detailed Comparison")
-    plt.ylabel("Number of Lines")
+    #plt.scatter(5.1, 590, color="#D41159", marker="*", s=100)
+    #plt.annotate("2020 System", (5.1, 590), textcoords="offset points", xytext=(10,-4))
+
+    plt.title("Raw Metrics Relative Percentage Comparison")
+    plt.ylabel("Relative Percentage Metrics 2020 vs 2019")
     plt.xlabel("Raw Metrics")
-    """
+
  
 ### Percentage
-    plt.xticks(range(len(xNames)), xNames)
+    #plt.xticks(range(len(xNames)), xNames)
 
-    plt.xlabel("Raw Metrics")     
-    plt.title("Raw Metrics Percentage Comparison")
-    plt.ylabel("Percentage Metrics 2020 vs 2019") 
+    #plt.xlabel("Raw Metrics")     
+    #plt.title("Raw Metrics Percentage Comparison")
+    #plt.ylabel("Percentage Metrics 2020 vs 2019") 
 
     plt.show()
 
@@ -76,7 +76,7 @@ def getJSON(filename):
 
 def plotHalstead(old, new):
 
-    xNames= ["VOCABULARY", "LENGTH", "CALCULATED_LENGTH", "VOLUME", "DIFFICULTY", "TIME", "BUGS"]
+    xNames= ["VOCABULARY", "LENGTH", "CALC_LENGTH", "VOLUME", "DIFFICULTY", "TIME", "BUGS"]
     
     halsteadTotalOld = [0,0,0,0,0,0,0]
     halsteadTotalNew = [0,0,0,0,0,0,0]
@@ -113,21 +113,21 @@ def plotHalstead(old, new):
 
 # RAW
     """
-    plt.scatter(5.5, 2550, color="#1A85FF", marker="^", s=100)
-    plt.annotate("2019 System", (5.5, 2550), textcoords="offset points", xytext=(10,-4)) 
+    plt.scatter(5.1, 2550, color="#1A85FF", marker="^", s=100)
+    plt.annotate("2019 System", (5.1, 2550), textcoords="offset points", xytext=(10,-4)) 
 
-    plt.scatter(5.5, 2350, color="#D41159",  marker="*", s=100)
-    plt.annotate("2020 System", (5.5, 2350), textcoords="offset points", xytext=(10,-4))
+    plt.scatter(5.1, 2350, color="#D41159",  marker="*", s=100)
+    plt.annotate("2020 System", (5.1, 2350), textcoords="offset points", xytext=(10,-4))
 
     plt.xlabel("Halstead Metrics")     
     plt.ylabel("Metrics Size") 
     plt.title("Halstead Metrics Detailed Comparison")
     """
 #Percentage
-
+ 
     plt.xlabel("Halstead Metrics")     
-    plt.ylabel("Percentage Metrics 2020 vs 2019") 
-    plt.title("Halstead Metrics Percentage Comparison")
+    plt.ylabel("Relative Percentage Metrics 2020 vs 2019") 
+    plt.title("Halstead Metrics Relative Percentage Comparison")
 
 
     plt.show()
@@ -150,8 +150,8 @@ def plotCC_MI(oldMI, newMI):
 
     plt.xticks(range(len(xNames)), xNames)
 
+    #plt.bar(0, 100, color="#1A85FF")
     #plt.bar(0, newCC/oldCC*100, color="#D35FB7")
-
     plt.scatter(0, oldCC, color="#1A85FF", s=100, marker="^")
     plt.scatter(0, newCC, color="#D41159", s=100, marker="*")
 
@@ -159,9 +159,9 @@ def plotCC_MI(oldMI, newMI):
     oldAverage= oldTotal/len(oldMI)
 
     #plt.bar(1, newAverage/oldAverage*100, color="#D35FB7")
+    #plt.bar(1, 100, color="#1A85FF")
     plt.scatter(1, oldAverage, color="#1A85FF", s=100, marker="^")
     plt.scatter(1, newAverage, color="#D41159", s=100, marker="*")
-
 
     plt.scatter(0, 80, color="#1A85FF", marker="^", s=100)
     plt.annotate("2019 System", (0, 80), textcoords="offset points", xytext=(10,-4)) 
@@ -169,12 +169,12 @@ def plotCC_MI(oldMI, newMI):
     plt.scatter(0, 75, color="#D41159", marker="*", s=100)
     plt.annotate("2020 System", (0, 75), textcoords="offset points", xytext=(10,-4))
 
-    plt.ylabel("Metrics Value")
+    plt.ylabel("Relative Percentage Metrics 2020 vs 2019")
     plt.xlabel("Cyclomatic Complexity and Maintainability Index")
-    plt.title("Detailed Analysis: CC and MI")
+    plt.title("CC and MI Relative Percentage Comparison")
     plt.show()
 
 
 if __name__=="__main__":
-    plotCC_MI(getJSON("std_fsai/mi.txt"), getJSON("ros_fsai/mi.txt"))
+    plotRaw(getJSON("std_fsai/raw.txt"), getJSON("ros_fsai/raw.txt"))
     
